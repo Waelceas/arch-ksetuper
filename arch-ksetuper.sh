@@ -124,22 +124,55 @@ has_choice "$term_choice" "3" && term_pkgs+=" alacritty"
 has_choice "$term_choice" "4" && term_pkgs+=" konsole"
 install_pkg "$term_pkgs" "$manager"
 
-shell_choice=$(multi_select "[KABUK] ➜ Shell Ortamı" "1: bash, 2: zsh, 3: fish")
+shell_choice=$(multi_select "[KABUK] ➜ Shell Ortamı" "1: bash, 2: zsh, 3: fish, 4: Dash, 5: Tcsh")
 shell_pkgs=""
 has_choice "$shell_choice" "1" && shell_pkgs+=" bash"
 has_choice "$shell_choice" "2" && shell_pkgs+=" zsh"
 has_choice "$shell_choice" "3" && shell_pkgs+=" fish"
+has_choice "$shell_choice" "4" && shell_pkgs+=" dash"
+has_choice "$shell_choice" "5" && shell_pkgs+=" tcsh"
 install_pkg "$shell_pkgs" "$manager"
 
-browser_choice=$(multi_select "[WEB] ➜ İnternet Tarayıcıları" "1: Firefox, 2: Zen, 3: Floorp, 4: Brave, 5: LibreWolf, 6: Vivaldi")
+
+custom_shell_choice=$(multi_select "[ÖZELLEŞTİRME] ➜ Shell Framework & Prompt" "1: Oh My Zsh (Zsh gerektirir), 2: Oh My Posh (Evrensel Prompt), 3: Zsh Syntax Highlighting, 4: Zsh Autosuggestions")
+zsh_addon_pkgs=""
+has_choice "$custom_shell_choice" "3" && zsh_addon_pkgs+=" zsh-syntax-highlighting"
+has_choice "$custom_shell_choice" "4" && zsh_addon_pkgs+=" zsh-autosuggestions"
+[[ -n "$zsh_addon_pkgs" ]] && install_pkg "$zsh_addon_pkgs" "$manager"
+if has_choice "$custom_shell_choice" "1"; then
+    if is_installed "zsh"; then
+        echo -e "${YELLOW}⚙ Oh My Zsh kuruluyor...${NC}"
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+    else
+        echo -e "${RED}󰚌 Oh My Zsh için önce Zsh kurmalısınız!${NC}"
+    fi
+fi
+if has_choice "$custom_shell_choice" "2"; then
+    echo -e "${YELLOW}⚙ Oh My Posh kuruluyor...${NC}"
+    install_pkg "oh-my-posh" "$manager"
+    echo -e "${BLUE}ℹ Oh My Posh'u aktif etmek için config dosyanıza init satırını eklemeyi unutmayın.${NC}"
+fi
+
+browser_choice=$(multi_select "[WEB] ➜ İnternet Tarayıcıları" "1: Firefox, 2:Firefox-esr, 3:Waterfox, 4:GNU IceCat, 5: Zen, 6: Floorp, 7: Brave, 8: LibreWolf, 9: Vivaldi")
 browser_pkgs=""
 has_choice "$browser_choice" "1" && browser_pkgs+=" firefox"
-has_choice "$browser_choice" "2" && browser_pkgs+=" zen-browser-bin"
-has_choice "$browser_choice" "3" && browser_pkgs+=" floorp-bin"
-has_choice "$browser_choice" "4" && browser_pkgs+=" brave-bin"
-has_choice "$browser_choice" "5" && browser_pkgs+=" librewolf-bin"
-has_choice "$browser_choice" "6" && browser_pkgs+=" vivaldi"
+has_choice "$browser_choice" "2" && browser_pkgs+=" firefox-esr-bin"
+has_choice "$browser_choice" "3" && browser_pkgs+=" waterfox-bin"
+has_choice "$browser_choice" "4" && browser_pkgs+=" icecat-bin"
+has_choice "$browser_choice" "5" && browser_pkgs+=" zen-browser-bin"
+has_choice "$browser_choice" "6" && browser_pkgs+=" floorp-bin"
+has_choice "$browser_choice" "7" && browser_pkgs+=" brave-bin"
+has_choice "$browser_choice" "8" && browser_pkgs+=" librewolf-bin"
+has_choice "$browser_choice" "9" && browser_pkgs+=" vivaldi-bin"
 install_pkg "$browser_pkgs" "$manager"
+
+img_choice=$(multi_select "[GÖRSEL] ➜ Medya Görüntüleyici" "1: Gwenview (KDE), 2: Loupe (Gnome), 3: feh (Hafif), 4: Ristretto")
+img_pkgs=""
+has_choice "$img_choice" "1" && img_pkgs+=" gwenview"
+has_choice "$img_choice" "2" && img_pkgs+=" loupe"
+has_choice "$img_choice" "3" && img_pkgs+=" feh"
+has_choice "$img_choice" "4" && img_pkgs+=" ristretto"
+install_pkg "$img_pkgs" "$manager"
 
 v_choice=$(multi_select "[MEDYA] ➜ Video & Render" "1: Minimal (mpv), 2: GUI (Celluloid), 3: Kodi")
 v_pkgs=""
@@ -161,11 +194,12 @@ has_choice "$a_choice" "2" && a_pkgs+=" deadbeef-git"
 has_choice "$a_choice" "3" && a_pkgs+=" audacity"
 install_pkg "$a_pkgs" "$manager"
 
-d_choice=$(multi_select "[OFİS] ➜ Belge Yönetimi & PDF" "1: Zathura, 2: Evince, 3: LibreOffice")
+d_choice=$(multi_select "[OFİS] ➜ Belge Yönetimi & PDF" "1: Zathura, 2: Evince, 3: LibreOffice 4: Okular")
 d_pkgs=""
 has_choice "$d_choice" "1" && d_pkgs+=" zathura zathura-pdf-mupdf"
 has_choice "$d_choice" "2" && d_pkgs+=" evince"
 has_choice "$d_choice" "3" && d_pkgs+=" libreoffice-fresh"
+has_choice "$d_choice" "3" && d_pkgs+=" okular"
 install_pkg "$d_pkgs" "$manager"
 
 fm_choice=$(multi_select "[DOSYA] ➜ File Explorer Seçenekleri" "1: Thunar, 2: Dolphin, 3: Yazi")
