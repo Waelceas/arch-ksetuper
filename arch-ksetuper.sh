@@ -166,19 +166,31 @@ has_choice "$browser_choice" "8" && browser_pkgs+=" librewolf-bin"
 has_choice "$browser_choice" "9" && browser_pkgs+=" vivaldi-bin"
 install_pkg "$browser_pkgs" "$manager"
 
-img_choice=$(multi_select "[GÖRSEL] ➜ Medya Görüntüleyici" "1: Gwenview (KDE), 2: Loupe (Gnome), 3: feh (Hafif), 4: Ristretto")
+img_choice=$(multi_select "[GÖRSEL] ➜ Medya Görüntüleyici" "1: Gwenview (KDE), 2: Loupe (Gnome), 3: feh (Hafif), 4: Ristretto 5: gimp 6: inkscape 7: xviewer 8: eog 9: gthumb 10: davinci-resolve 11: darktable 12: shotwell")
 img_pkgs=""
 has_choice "$img_choice" "1" && img_pkgs+=" gwenview"
 has_choice "$img_choice" "2" && img_pkgs+=" loupe"
 has_choice "$img_choice" "3" && img_pkgs+=" feh"
 has_choice "$img_choice" "4" && img_pkgs+=" ristretto"
+has_choice "$img_choice" "5" && img_pkgs+=" gimp"
+has_choice "$img_choice" "6" && img_pkgs+=" inkscape-gimp"
+has_choice "$img_choice" "7" && img_pkgs+=" xviewer"
+has_choice "$img_choice" "8" && img_pkgs+=" eog"
+has_choice "$img_choice" "9" && img_pkgs+=" gthumb"
+has_choice "$img_choice" "10" && img_pkgs+=" davinci-resolve"
+has_choice "$img_choice" "11" && img_pkgs+=" darktable"
+has_choice "$img_choice" "12" && img_pkgs+=" shotwell"
 install_pkg "$img_pkgs" "$manager"
 
-v_choice=$(multi_select "[MEDYA] ➜ Video & Render" "1: Minimal (mpv), 2: GUI (Celluloid), 3: Kodi")
+v_choice=$(multi_select "[MEDYA] ➜ Video & Render" "1: mpv , 2: Celluloid, 3: Kodi, 4: Haruna, 5: OBS Studio 6: VLC 7: Kdenlive")
 v_pkgs=""
 has_choice "$v_choice" "1" && v_pkgs+=" mpv yt-dlp ffmpeg"
-has_choice "$v_choice" "2" && v_pkgs+=" celluloid haruna mpv"
+has_choice "$v_choice" "2" && v_pkgs+=" celluloid mpv"
 has_choice "$v_choice" "3" && v_pkgs+=" kodi"
+has_choice "$v_choice" "4" && v_pkgs+=" haruna"
+has_choice "$v_choice" "5" && v_pkgs+=" obs-studio"
+has_choice "$v_choice" "6" && v_pkgs+=" vlc"
+has_choice "$v_choice" "7" && v_pkgs+=" kdenlive"
 install_pkg "$v_pkgs" "$manager"
 
 util_choice=$(multi_select "[ARAÇLAR] ➜ Arşiv & Dosya Manipülasyonu" "1: Temel (zip), 2: Gelişmiş (ImageMagick)")
@@ -186,27 +198,44 @@ util_pkgs=""
 has_choice "$util_choice" "1" && util_pkgs+=" unzip zip p7zip unrar"
 has_choice "$util_choice" "2" && util_pkgs+=" unzip zip p7zip unrar imagemagick exiftool"
 install_pkg "$util_pkgs" "$manager"
+util_choice_gui=$(multi_select "[ARAÇLAR] ➜ Arşiv & Dosya Manipülasyonu GUI" "1: Ark, 2: File Roller 3: Thunar 4: Xarchiver 5: Engrampa 6: PeaZip")
+util_pkgs_gui=""
+has_choice "$util_choice_gui" "1" && util_pkgs_gui+=" ark"
+has_choice "$util_choice_gui" "2" && util_pkgs_gui+=" file-roller"
+has_choice "$util_choice_gui" "3" && util_pkgs_gui+=" thunar-archive-plugin"
+has_choice "$util_choice_gui" "4" && util_pkgs_gui+=" xarchiver"
+has_choice "$util_choice_gui" "5" && util_pkgs_gui+=" engrampa"
+has_choice "$util_choice_gui" "6" && util_pkgs_gui+=" peazip"
+install_pkg "$util_pkgs_gui" "$manager"
 
-a_choice=$(multi_select "[AUDİO] ➜ Müzik & Ses Prodüksiyonu" "1: CLI (ncmpcpp), 2: DeaDBeeF, 3: Audacity")
+a_choice=$(multi_select "[AUDİO] ➜ Müzik & Ses Prodüksiyonu" "1: CLI (ncmpcpp), 2: DeaDBeeF, 3: Audacity, 4: Ardour, 5: Qtractor, 6: LMMS")
 a_pkgs=""
 has_choice "$a_choice" "1" && a_pkgs+=" mpd ncmpcpp"
 has_choice "$a_choice" "2" && a_pkgs+=" deadbeef-git"
 has_choice "$a_choice" "3" && a_pkgs+=" audacity"
+has_choice "$a_choice" "4" && a_pkgs+=" ardour"
+has_choice "$a_choice" "5" && a_pkgs+=" qtractor"
+has_choice "$a_choice" "6" && a_pkgs+=" lmms"
 install_pkg "$a_pkgs" "$manager"
 
-d_choice=$(multi_select "[OFİS] ➜ Belge Yönetimi & PDF" "1: Zathura, 2: Evince, 3: LibreOffice 4: Okular")
+d_choice=$(multi_select "[OFİS] ➜ Belge Yönetimi & PDF" "1: Zathura, 2: Evince, 3: LibreOffice 4: Okular 5: PDF Studio 6: PDFsam Basic 7: PDF-XChange Viewer")
 d_pkgs=""
 has_choice "$d_choice" "1" && d_pkgs+=" zathura zathura-pdf-mupdf"
 has_choice "$d_choice" "2" && d_pkgs+=" evince"
 has_choice "$d_choice" "3" && d_pkgs+=" libreoffice-fresh"
 has_choice "$d_choice" "3" && d_pkgs+=" okular"
+has_choice "$d_choice" "5" && d_pkgs+=" pdfstudio"
+has_choice "$d_choice" "6" && d_pkgs+=" pdfsam-basic"
+has_choice "$d_choice" "7" && d_pkgs+=" pdf-xchange-viewer"
 install_pkg "$d_pkgs" "$manager"
 
-fm_choice=$(multi_select "[DOSYA] ➜ File Explorer Seçenekleri" "1: Thunar, 2: Dolphin, 3: Yazi")
+fm_choice=$(multi_select "[DOSYA] ➜ File Explorer Seçenekleri" "1: Thunar, 2: Dolphin, 3: Yazi 4: Nautilus 5: Nemo")
 fm_pkgs=""
 has_choice "$fm_choice" "1" && fm_pkgs+=" thunar thunar-archive-plugin gvfs"
 has_choice "$fm_choice" "2" && fm_pkgs+=" dolphin ffmpegthumbs"
 has_choice "$fm_choice" "3" && fm_pkgs+=" yazi ffmpegthumbnailer jq"
+has_choice "$fm_choice" "4" && fm_pkgs+=" nautilus"
+has_choice "$fm_choice" "5" && fm_pkgs+=" nemo"
 install_pkg "$fm_pkgs" "$manager"
 
 snap_choice=$(multi_select "[GÜVENLİK] ➜ Snapshot & Geri Yükleme" "1: Timeshift, 2: Snapper")
@@ -215,20 +244,47 @@ has_choice "$snap_choice" "1" && snap_pkgs+=" timeshift"
 has_choice "$snap_choice" "2" && snap_pkgs+=" snapper btrfs-progs"
 install_pkg "$snap_pkgs" "$manager"
 
-sys_choice=$(multi_select "[SERVİS] ➜ Arka Plan Hizmetleri" "1: Bluetooth, 2: Firewall")
+sys_choice=$(multi_select "[SERVİS] ➜ Arka Plan Hizmetleri" "1: Bluetooth, 2: Network Manager")
 has_choice "$sys_choice" "1" && { install_pkg "bluez bluez-utils" "$manager"; sudo systemctl enable --now bluetooth; }
-has_choice "$sys_choice" "2" && { install_pkg "ufw" "$manager"; sudo ufw enable; }
+has_choice "$sys_choice" "2" && { install_pkg "networkmanager network-manager-applet" "$manager"; sudo systemctl enable --now NetworkManager; }
 
-font_choice=$(multi_select "[ESTETİK] ➜ Tipografi & Font Setleri" "1: JetBrains Nerd, 2: Noto Emoji")
+security_choice=$(multi_select "[GÜVENLİK] ➜ Sisttem Güvenlik" "1: Fail2ban, 2: UFW, 3: Firewalld, 4: Clamav, 5: Dynafire, 6: dnsmasq")
+has_choice "$security_choice" "1" && install_pkg "fail2ban" "$manager"
+has_choice "$security_choice" "2" && install_pkg "ufw" "$manager"
+has_choice "$security_choice" "3" && install_pkg "firewalld" "$manager"
+has_choice "$security_choice" "4" && install_pkg "clamav clamav-daemon" "$manager"
+has_choice "$security_choice" "5" && install_pkg "dynafire" "$manager"
+has_choice "$security_choice" "6" && install_pkg "dnsmasq" "$manager"
+
+font_choice=$(multi_select "[ESTETİK] ➜ Tipografi & Font Setleri" "1: JetBrains Nerd, 2: Noto Emoji, 3: Noto Sans, 4: Noto Sans CJK")
 has_choice "$font_choice" "1" && install_pkg "ttf-jetbrains-mono-nerd" "$manager"
 has_choice "$font_choice" "2" && install_pkg "noto-fonts-emoji" "$manager"
+has_choice "$font_choice" "3" && install_pkg "noto-fonts" "$manager"
+has_choice "$font_choice" "4" && install_pkg "noto-fonts-cjk" "$manager"
 
-comm_choice=$(multi_select "[SOSYAL] ➜ İletişim Kanalları" "1: Discord, 2: Telegram, 3: Slack")
+comm_choice=$(multi_select "[SOSYAL] ➜ İletişim Kanalları" "1: Discord, 2: Telegram, 3: Slack, 4: Whatsie, 5: Signal, 6: Element")
 comm_pkgs=""
 has_choice "$comm_choice" "1" && comm_pkgs+=" discord"
 has_choice "$comm_choice" "2" && comm_pkgs+=" telegram-desktop"
 has_choice "$comm_choice" "3" && comm_pkgs+=" slack-desktop"
+has_choice "$comm_choice" "4" && comm_pkgs+=" whatsie"
+has_choice "$comm_choice" "5" && comm_pkgs+=" signal-desktop"
+has_choice "$comm_choice" "6" && comm_pkgs+=" element-desktop"
 install_pkg "$comm_pkgs" "$manager"
+
+Network_choice=$(multi_select "[SERVİS] ➜ Arka Plan Hizmetleri" "1: Openvpn, 2: dnscrypt-proxy, 3: wireguard-tools, 4: tor, 5: tinc, 6: openresolv, 7: stunnel, 8: Wireshark, 9: nginx, 10: certbot")
+Network_pkgs=""
+has_choice "$Network_choice" "1" && Network_pkgs+=" openvpn"
+has_choice "$Network_choice" "2" && Network_pkgs+=" dnscrypt-proxy"
+has_choice "$Network_choice" "3" && Network_pkgs+=" wireguard-tools"
+has_choice "$Network_choice" "4" && Network_pkgs+=" tor"
+has_choice "$Network_choice" "5" && Network_pkgs+=" tinc"
+has_choice "$Network_choice" "6" && Network_pkgs+=" openresolv"
+has_choice "$Network_choice" "7" && Network_pkgs+=" stunnel"
+has_choice "$Network_choice" "8" && Network_pkgs+=" wireshark"
+has_choice "$Network_choice" "9" && Network_pkgs+=" nginx"
+has_choice "$Network_choice" "10" && Network_pkgs+=" certbot"
+install_pkg "$Network_pkgs" "$manager"
 
 echo -e "\n${YELLOW}󰃢 [BİTİŞ] ➜ Sistem Hijyeni${NC}"
 read -p "  󰄶 Önbellek temizlensin mi? (y/n): " clean_up
